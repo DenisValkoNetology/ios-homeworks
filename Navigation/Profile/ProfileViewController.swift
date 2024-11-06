@@ -14,9 +14,11 @@ class ProfileViewController: UIViewController {
     override  func viewDidLoad() {
         super.viewDidLoad()
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         makeAppearance()
         view.addSubview(profileHeaderView)
-
     }
 
     override func viewWillLayoutSubviews() {
@@ -35,6 +37,10 @@ class ProfileViewController: UIViewController {
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
