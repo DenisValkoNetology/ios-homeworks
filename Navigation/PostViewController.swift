@@ -15,10 +15,19 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeAppearance()
+    }
+
+    private func makeAppearance() {
         title = titleOfPost
         view.backgroundColor = .systemGray4
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(infoPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Инфо",
+            style: .plain,
+            target: self,
+            action: #selector(infoPressed(_:))
+        )
     }
 
     @objc func infoPressed(_ sender: UIButton) {

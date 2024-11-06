@@ -10,21 +10,26 @@ import UIKit
 class InfoViewController: UIViewController {
 
     private lazy var alertButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemRed
         button.setTitle("Alert", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(alertPressed(_:)), for: .touchUpInside)
 
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
 
         view.addSubview(alertButton)
+        makeAppearance()
+    }
+
+    private func makeAppearance() {
+        view.backgroundColor = .systemBackground
 
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -39,12 +44,11 @@ class InfoViewController: UIViewController {
             ),
             alertButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
-
-        alertButton.addTarget(self, action: #selector(alertPressed(_:)), for: .touchUpInside)
-
     }
 
     @objc func alertPressed(_ sender: UIButton) {
+        sender.animateButton()
+        
         let alert = UIAlertController(title: "Алерт!", message: "Отправить в консоль?", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))

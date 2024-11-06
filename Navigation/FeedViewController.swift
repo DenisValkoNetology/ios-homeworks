@@ -12,12 +12,13 @@ class FeedViewController: UIViewController {
     var post = Post(title: "Какой-то пост")
 
     private lazy var postButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemBlue
         button.setTitle("Перейти в пост", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
 
         return button
     }()
@@ -26,7 +27,13 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
 
         view.addSubview(postButton)
+        makeAppearance()
+    }
 
+    private func makeAppearance() {
+        title = "Лента"
+        view.backgroundColor = .systemBackground
+        
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             postButton.bottomAnchor.constraint(
@@ -43,15 +50,11 @@ class FeedViewController: UIViewController {
             ),
             postButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
-
-        title = "Лента"
-        view.backgroundColor = .systemBackground
-
-        postButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-
     }
 
     @objc func buttonPressed(_ sender: UIButton) {
+        sender.animateButton()
+        
         let postViewController = PostViewController()
         postViewController.titleOfPost = post.title
 

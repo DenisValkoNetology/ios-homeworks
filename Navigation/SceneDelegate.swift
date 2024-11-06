@@ -17,9 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: scene)
 
-        let profileViewController = ViewController()
-        profileViewController.title = "Профиль"
-        profileViewController.view.backgroundColor = .systemBackground
+        let profileViewController = ProfileViewController()
 
         let feedViewController = FeedViewController()
 
@@ -32,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers = controllers.map {
             UINavigationController(rootViewController: $0)
         }
-        tabBarController.selectedIndex = 1
+        tabBarController.selectedIndex = 0
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
@@ -71,3 +69,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension UIButton {
+    func animateButton() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        })
+        UIView.animate(withDuration: 0.1, delay: 0.0) {
+            self.transform = .identity
+        }
+    }
+}
