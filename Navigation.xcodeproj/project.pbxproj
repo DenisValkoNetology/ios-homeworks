@@ -17,6 +17,8 @@
 		631FDEE72CD8D40D00FC1A4D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FDEE62CD8D40D00FC1A4D /* InfoViewController.swift */; };
 		639C6A612CDB60E900B1309D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C6A602CDB60E900B1309D /* ProfileHeaderView.swift */; };
 		639C6A632CDB60F500B1309D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639C6A622CDB60F500B1309D /* ProfileViewController.swift */; };
+		63CE20E32CDF5E45002BCB04 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CE20E22CDF5E45002BCB04 /* LogInViewController.swift */; };
+		63CE20E52CDFEBE7002BCB04 /* MyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CE20E42CDFEBE7002BCB04 /* MyButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		631FDEE62CD8D40D00FC1A4D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		639C6A602CDB60E900B1309D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		639C6A622CDB60F500B1309D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		63CE20E22CDF5E45002BCB04 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		63CE20E42CDFEBE7002BCB04 /* MyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 				631FDEE22CD8C82900FC1A4D /* PostViewController.swift */,
 				631FDEE42CD8D13C00FC1A4D /* Post.swift */,
 				631FDEE62CD8D40D00FC1A4D /* InfoViewController.swift */,
+				63CE20E42CDFEBE7002BCB04 /* MyButton.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -83,6 +88,7 @@
 			children = (
 				639C6A602CDB60E900B1309D /* ProfileHeaderView.swift */,
 				639C6A622CDB60F500B1309D /* ProfileViewController.swift */,
+				63CE20E22CDF5E45002BCB04 /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -159,10 +165,12 @@
 			files = (
 				631FDECD2CD8B18400FC1A4D /* AppDelegate.swift in Sources */,
 				631FDEE12CD8C4EE00FC1A4D /* FeedViewController.swift in Sources */,
+				63CE20E32CDF5E45002BCB04 /* LogInViewController.swift in Sources */,
 				631FDEE72CD8D40D00FC1A4D /* InfoViewController.swift in Sources */,
 				631FDEE52CD8D13C00FC1A4D /* Post.swift in Sources */,
 				631FDECF2CD8B18400FC1A4D /* SceneDelegate.swift in Sources */,
 				639C6A632CDB60F500B1309D /* ProfileViewController.swift in Sources */,
+				63CE20E52CDFEBE7002BCB04 /* MyButton.swift in Sources */,
 				631FDEE32CD8C82900FC1A4D /* PostViewController.swift in Sources */,
 				639C6A612CDB60E900B1309D /* ProfileHeaderView.swift in Sources */,
 			);

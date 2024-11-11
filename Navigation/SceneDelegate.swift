@@ -17,20 +17,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: scene)
 
-        let profileViewController = ProfileViewController()
+        //let profileViewController = ProfileViewController()
+
+        let logInViewController = LogInViewController()
 
         let feedViewController = FeedViewController()
 
         let tabBarController = UITabBarController()
 
-        profileViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), tag: 0)
+        logInViewController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         feedViewController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "newspaper"), tag: 1)
 
-        let controllers = [profileViewController, feedViewController]
+        let controllers = [logInViewController, feedViewController]
         tabBarController.viewControllers = controllers.map {
             UINavigationController(rootViewController: $0)
         }
-        tabBarController.selectedIndex = 0
+        tabBarController.selectedIndex = 1
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

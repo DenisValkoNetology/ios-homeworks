@@ -9,8 +9,6 @@ import UIKit
 
 class ProfileHeaderView: UIView {
 
-    private let initialStatus = "Сплю..."
-
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
 
@@ -58,8 +56,7 @@ class ProfileHeaderView: UIView {
 
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
-        label.text = initialStatus
-
+        label.text = "Сплю..."
         label.translatesAutoresizingMaskIntoConstraints = false
 
         return label
@@ -86,7 +83,7 @@ class ProfileHeaderView: UIView {
         return text
     }()
 
-    private lazy var statusText = initialStatus
+    private lazy var statusText = statusLabel.text
 
     override init(frame: CGRect) {
         super.init(frame: frame)
