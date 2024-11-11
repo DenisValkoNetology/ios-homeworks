@@ -9,22 +9,48 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    let profileHeaderView = ProfileHeaderView()
+    private lazy var profileHeaderView: ProfileHeaderView = {
+        let view = ProfileHeaderView()
 
-    override  func viewDidLoad() {
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view
+    }()
+
+    private lazy var setTitleButton: UIButton = {
+        var button = UIButton(type: .system)
+
+        button.setTitle("Изменить заголовок", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        return button
+    }()
+
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
-        makeAppearance()
+
         view.addSubview(profileHeaderView)
+        view.addSubview(setTitleButton)
+        makeAppearance()
+        setupConstraints()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    private func setupConstraints() {
+        let safeAreaGuide = view.safeAreaLayoutGuide
 
-        profileHeaderView.frame = view.frame
+        NSLayoutConstraint.activate([
+            profileHeaderView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 0.0),
+            profileHeaderView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: 0.0),
+            profileHeaderView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 0.0),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220.0),
+
+            setTitleButton.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
+            setTitleButton.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            setTitleButton.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
+        ])
     }
 
     private func makeAppearance () {
