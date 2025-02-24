@@ -8,65 +8,75 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
-    private lazy var profileHeaderView: ProfileHeaderView = {
-        let view = ProfileHeaderView()
-
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        return view
+    
+    static var postTableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        table.register(PostTableViewCell.self, forCellReuseIdentifier: "post")
+        return table
     }()
-
-    private lazy var setTitleButton: UIButton = {
-        var button = UIButton(type: .system)
-
-        button.setTitle("Изменить заголовок", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        return button
-    }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        view.backgroundColor = .systemBackground
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
-
-        view.addSubview(profileHeaderView)
-        view.addSubview(setTitleButton)
-        makeAppearance()
+        
+        view.addSubview(Self.postTableView)
         setupConstraints()
+        Self.postTableView.dataSource = self
+        Self .postTableView.delegate = self
     }
-
+    
     private func setupConstraints() {
-        let safeAreaGuide = view.safeAreaLayoutGuide
-
         NSLayoutConstraint.activate([
-            profileHeaderView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 0.0),
-            profileHeaderView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: 0.0),
-            profileHeaderView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor, constant: 0.0),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220.0),
-
-            setTitleButton.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
-            setTitleButton.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
-            setTitleButton.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
+            Self.postTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            Self.postTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            Self.postTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            Self.postTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
-    private func makeAppearance () {
-        title = "Профиль"
-        view.backgroundColor = .lightGray
-
-        tabBarController?.tabBar.backgroundColor = .systemBackground
-
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithOpaqueBackground()
-        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-    }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
+extension ProfileViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return postData.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = Self.postTableView.dequeueReusableCell(
+            withIdentifier: "post",
+            for: indexPath
+        ) as? PostTableViewCell else {
+            fatalError(
+                "The dequeued cell is not an instance of PostTableViewCell."
+            )
+        }
+        cell.fillPost(post: postData[indexPath.row])
+        return cell
+    }
+}
 
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section == 0 else { return nil }
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! ProfileHeaderView
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? 240 : 0
+    }
+    
+}
