@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         table.register(PostTableViewCell.self, forCellReuseIdentifier: "post")
+        table.register(PhotosTableViewCell.self, forCellReuseIdentifier: "photo")
         return table
     }()
     
@@ -22,49 +23,50 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
         view.addSubview(Self.postTableView)
         setupConstraints()
         Self.postTableView.dataSource = self
-        Self .postTableView.delegate = self
+        Self.postTableView.delegate = self
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             Self.postTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            Self.postTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            Self.postTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            Self.postTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            Self.postTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             Self.postTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
 }
 extension ProfileViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postData.count
+        switch section {
+        case 0: return 1
+        case 1: return postData.count
+        default:
+            return 1
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = Self.postTableView.dequeueReusableCell(
-            withIdentifier: "post",
-            for: indexPath
-        ) as? PostTableViewCell else {
-            fatalError(
-                "The dequeued cell is not an instance of PostTableViewCell."
-            )
+        switch indexPath.section {
+        case 0:
+            let cell = Self.postTableView.dequeueReusableCell(withIdentifier: "photo", for: indexPath) as! PhotosTableViewCell
+            return cell
+        case 1:
+            let cell = Self.postTableView.dequeueReusableCell(
+                withIdentifier: "post",
+                for: indexPath
+            ) as! PostTableViewCell
+            cell.fillPost(post: postData[indexPath.row])
+            return cell
+        default:
+            return UITableViewCell()
         }
-        cell.fillPost(post: postData[indexPath.row])
-        return cell
     }
 }
 
@@ -79,4 +81,10 @@ extension ProfileViewController: UITableViewDelegate {
         return section == 0 ? 240 : 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            tableView.deselectRow(at: indexPath, animated: false)
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
+    }
 }
