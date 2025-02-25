@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
 
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -85,8 +85,8 @@ class ProfileHeaderView: UIView {
 
     private lazy var statusText = statusLabel.text
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
 
         addSubviews()
         setupConstraints()
@@ -129,7 +129,7 @@ class ProfileHeaderView: UIView {
             setStatusButton.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor, constant: 16.0),
             setStatusButton.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor, constant: -16.0),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50.0),
-            setStatusButton.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor)
+            setStatusButton.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor, constant: -16.0)
         ])
     }
 
@@ -151,5 +151,4 @@ class ProfileHeaderView: UIView {
         print(statusLabel.text ?? "Статус не установлен")
         }
 }
-
 
